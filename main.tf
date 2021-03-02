@@ -12,11 +12,15 @@ locals {
   ])
 }
 
-output "policy" {
+output "policy_from_template" {
   value = templatefile(
     "example.json.tmpl",
     {
       bucket_arns_json = jsonencode(local.bucket_arns)
     }
   )
+}
+
+output "policy_from_iam_policy_document" {
+  value = data.aws_iam_policy_document.policy.json
 }
